@@ -38,6 +38,11 @@ const viteConfig: UserConfig = {
     hmr: {
       overlay: false,
     },
+    allowedHosts: [
+      'c7d00ac52676.ngrok-free.app',
+      'localhost',
+      '.ngrok-free.app', // Permet tous les sous-domaines ngrok
+    ],
   },
 }
 

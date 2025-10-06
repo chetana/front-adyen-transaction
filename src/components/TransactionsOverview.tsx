@@ -5,6 +5,7 @@ import {
 } from '@adyen/adyen-platform-experience-web'
 import '@adyen/adyen-platform-experience-web/adyen-platform-experience-web.css'
 import { createAdyenSession } from '@/services/api'
+import { config } from '@/services/config'
 import type { TransactionsOverviewConfig } from '@/types/adyen'
 
 interface TransactionsOverviewProps {
@@ -44,7 +45,9 @@ export const TransactionsOverview = ({
 
         // Initialize the Adyen Platform Experience library
         console.log('🚀 Initializing Adyen Platform Experience...')
+        console.log('🌍 Environment:', config.adyenEnvironment)
         const core = await AdyenPlatformExperience({
+          environment: config.adyenEnvironment as 'test' | 'live',
           onSessionCreate: handleSessionCreate,
         })
         console.log('✅ Core initialized:', core)
@@ -55,18 +58,18 @@ export const TransactionsOverview = ({
         }
 
         // Create the Transactions Overview component
-        const config: TransactionsOverviewConfig = {
+        const componentConfig: TransactionsOverviewConfig = {
           core,
           allowLimitSelection,
           preferredLimit,
         }
 
         if (onRecordSelection) {
-          config.onRecordSelection = onRecordSelection
+          componentConfig.onRecordSelection = onRecordSelection
         }
 
-        console.log('📦 Creating TransactionsOverview with config:', config)
-        const transactionsOverview = new AdyenTransactionsOverview(config)
+        console.log('📦 Creating TransactionsOverview with config:', componentConfig)
+        const transactionsOverview = new AdyenTransactionsOverview(componentConfig)
         console.log('✅ TransactionsOverview created:', transactionsOverview)
 
         if (!mounted) {
