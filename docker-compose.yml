@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  adyen-transaction:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8080}
+    container_name: adyen-transaction
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+      - "${BACKEND_PORT:-8080}:8080"
+    environment:
+      # Backend environment variables
+      - PORT=8080
+      - ADYEN_API_KEY=${ADYEN_API_KEY}
+      - ADYEN_ENVIRONMENT=${ADYEN_ENVIRONMENT:-test}
+      - ADYEN_ACCOUNT_HOLDER_ID=${ADYEN_ACCOUNT_HOLDER_ID}
+      - ADYEN_LIVE_URL_PREFIX=${ADYEN_LIVE_URL_PREFIX}
+      - ALLOW_ORIGIN=${ALLOW_ORIGIN:-http://localhost:3000}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - adyen-network
+
+networks:
+  adyen-network:
+    driver: bridge

@@ -1,0 +1,42 @@
+{
+  "name": "adyen-transaction",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0",
+    "yarn": ">=1.22.0 <2.0.0"
+  },
+  "scripts": {
+    "start": "vite --mode ${ENV:=development}",
+    "build": "vite build --mode ${ENV:=production}",
+    "preview": "vite preview",
+    "lint": "eslint \"./src\" --ext ts,tsx,js,jsx --report-unused-disable-directives",
+    "lint:fix": "eslint \"./src\" --ext ts,tsx,js,jsx --fix --report-unused-disable-directives",
+    "prettier:check": "prettier \"src/**/*.{js,jsx,ts,tsx,json,md,scss}\" --check",
+    "prettier:format": "prettier \"src/**/*.{js,jsx,ts,tsx,json,md,scss}\" --write"
+  },
+  "dependencies": {
+    "@adyen/adyen-platform-experience-web": "^1.0.0",
+    "axios": "^1.6.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.26.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@typescript-eslint/eslint-plugin": "^8.6.0",
+    "@typescript-eslint/parser": "^8.6.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8.4.34",
+    "prettier": "^2.7.1",
+    "typescript": "5.1.6",
+    "vite": "^5.0.8",
+    "vite-tsconfig-paths": "^4.3.1"
+  }
+}
